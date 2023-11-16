@@ -10,7 +10,22 @@ export const CreateBook = () => {
   const [date, setDate] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const handleCreateBook = () => {
+  const {id} = useParams();
+  useEffect(() => {
+    setLoading(true);
+    axios.get("http://localhost:5555/books/" + id)
+      .then((response) => {
+        setAuthor(response.data.author);
+        setTitle(response.data.title);
+        setDate(new Date(response.data.date).toLocaleDateString('en-CA'));
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
+  }, [id]);
+  const handleEditBook = () => {
     const data = {
       title,
       author,
@@ -19,7 +34,7 @@ export const CreateBook = () => {
     setLoading(true);
 
     axios
-      .post("http://localhost:5555/books/", data)
+      .put("http://localhost:5555/books/" + id, data)
       .then(() => {
         navigate("/");
         setLoading(false);
@@ -64,7 +79,7 @@ export const CreateBook = () => {
               className="border-2 border-gray-300 px-4 py-2 w-full"
             ></input>
           </div>
-          <button onClick={handleCreateBook} className="p-2 m-8 bg-blue-100">
+          <button onClick={handleEditBook} className="p-2 m-8 bg-blue-100">
             Save
           </button>
         </div>
