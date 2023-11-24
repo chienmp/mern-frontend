@@ -42,8 +42,8 @@ export const CreateBook = () => {
         <div className="flex flex-col border-2 border-sky-700 rounded-xl w-[600px] p-4 mx-auto">
           <div className="my-4">
             <label className="text-xl mr-4 text-gray-500">Title</label>
-            <input type="text" {...register('title', {required : true})} value={title} onChange={(e) => setTitle(e.target.value)} className="border-2 border-gray-300 px-4 py-2 w-full"  aria-invalid={errors.firstName ? "true" : "false"} ></input>
-            {errors.title?.type === 'required' && <p role="alert">Title is required</p>}
+            <input type="text" {...register('title', {required : true})} value={title} onChange={(e) => setTitle(e.target.value)} className={`border-2 ${errors.title ? 'border-red-300' : 'border-gray-300'} px-4 py-2 w-full`}  aria-invalid={errors.firstName ? "true" : "false"} ></input>
+            {errors.title?.type === 'required' && <p role="alert" className="text-red-300">Title is required</p>}
           </div>
           <div className="my-4">
             <label className="text-xl mr-4 text-gray-500">Author</label>
@@ -51,7 +51,7 @@ export const CreateBook = () => {
           </div>
           <div className="my-4">
             <label className="text-xl mr-4 text-gray-500">Title</label>
-            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="border-2 border-gray-300 px-4 py-2 w-full"></input>
+            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="border-2 border-re border-gray-300 px-4 py-2 w-full"></input>
           </div>
           <button onClick={handleSubmit(handleCreateBook)} className="p-2 m-8 bg-blue-100">Save</button>
         </div>
